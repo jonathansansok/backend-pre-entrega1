@@ -1,0 +1,58 @@
+[
+ {
+  "id": 3,
+  "nombre": "carro3",
+  "productos": [
+   "pera",
+   "banana",
+   "naranja",
+   "ciruelas",
+   "uvas",
+   {
+    "title": "Violín",
+    "price": 74500,
+    "thumbnail": "https://solomusica.com.ar/sm2020/6606-large_default/violin-yamaha-v5sa-44.jpg",
+    "id": 3
+   }
+  ]
+ },
+ {
+  "id": 2,
+  "nombre": "carro2",
+  "productos": [
+   "manzana",
+   "banana",
+   {
+    "title": "Guitarra Alpujarra",
+    "price": 99989,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_664855-MLA27358402919_052018-O.jpg",
+    "id": 3
+   },
+   {
+    "title": "Acordeón",
+    "price": 84768,
+    "thumbnail": "https://ar.xprostore.com/image/cache/data/imagenesweb/a5723s-650x650w.jpg",
+    "id": 5
+   }
+  ]
+ },
+ {
+  "id": 1,
+  "nombre": "carro1",
+  "productos": [
+   "manzana",
+   "pera",
+   "banana",
+   {
+    "new product": "peras",
+    "id": 4
+   },
+   {
+    "title": "Bajo",
+    "price": 79950,
+    "thumbnail": "https://y6v8e8y4.rocketcdn.me/wp-content/uploads/2022/08/1500x1500_template-wh-1-1.jpg",
+    "id": 5
+   }
+  ]
+ }
+]
