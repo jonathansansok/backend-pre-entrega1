@@ -13,6 +13,8 @@ class Cart {
       const newCart = {
         id: dataParsed.length + 1,
         timestamp: new Date().toLocaleString(),
+        products: [],
+        total: 0,
       };
 
       dataParsed.push(newCart);
@@ -35,6 +37,7 @@ class Cart {
       if (cartFound) {
         console.log(`Se ha eliminado el carrito con id:${idEntered}`);
         const updatedFile = JSON.stringify(leakedCartId, null, " ");
+
         fs.promises.writeFile(this.file, updatedFile);
         return cartFound;
       } else {
@@ -72,8 +75,10 @@ class Cart {
       const cartFound = dataParsed.find(({ id }) => id == idEntered);
 
       if (cartFound) {
-        cartFound.productos.push(object);
+        cartFound.products.push(object)
+        cartFound.products.sort((a, b) => a.id - b.id);
         leakedCartId.push(cartFound);
+        leakedCartId.sort((a, b) => a.id - b.id);
         const updatedFile = JSON.stringify(leakedCartId, null, " ");
         fs.promises.writeFile(this.file, updatedFile);
         console.log(
@@ -96,19 +101,19 @@ class Cart {
       const leakedCarts = dataParsed.filter(({ id }) => id != idCart);
       const cartFound = dataParsed.find(({ id }) => id == idCart);
 
-      const leakedProducts = cartFound.productos.filter(
+      const leakedProducts = cartFound.products.filter(
         ({ id }) => id != idProduct
       );
 
-      cartFound.productos = leakedProducts;
-
+      cartFound.products = leakedProducts;
+      cartFound.products.sort((a, b) => a.id - b.id);
       leakedCarts.push(cartFound);
-
+      leakedCarts.sort((a, b) => a.id - b.id);
       const updatedFile = JSON.stringify(leakedCarts, null, " ");
 
       fs.promises.writeFile(this.file, updatedFile);
 
-      return cartFound.productos;
+      return cartFound.products;
     } catch (error) {
       console.error(`Se produjo un error en deleteProductInCartById:${error}`);
     }

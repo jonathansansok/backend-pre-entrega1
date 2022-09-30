@@ -30,12 +30,11 @@ controller.deleteCart = async (req, res) => {
 
 controller.getProductsInCart = async (req, res) => {
   const data = await cart.getCartById(req.params.id);
-  console.log(data, "DATA 33");
   data
     ? res.status(200).json({
         message: "Se obtuvieron los productos del carrito",
         "cart id": `${req.params.id}`,
-        products: data.productos,
+        products: data.products,
       })
     : res.status(401).json({
         message: "El carrito no tiene productos", //FIXME REVISAR LUEGO
@@ -51,7 +50,7 @@ controller.saveProductInCart = async (req, res) => { //TODO Mejorar la funcional
     .status(200)
     .json({
       message: "Se añadió un producto al carrito",
-      "products in cart": data.productos,
+      "products in cart": data,
     });
 };
 

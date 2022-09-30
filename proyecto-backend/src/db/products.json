@@ -1,44 +1,44 @@
 [
- {
-  "title": "Ferrari",
-  "price": "40000",
-  "thumbnail": "https://cdn.pixabay.com/photo/2017/01/03/06/38/ferrari-f458-spider-1948751_960_720.jpg",
-  "id": 1
- },
- {
-  "title": "bmw",
-  "price": "30000",
-  "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/BMW_G11_IMG_2002.jpg/1280px-BMW_G11_IMG_2002.jpg",
-  "id": 2
- },
- {
-  "title": "Lambor",
-  "price": "28000",
-  "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Lamborghini_Aventador_Genf_2018.jpg",
-  "id": 3
- },
- {
-  "title": "mercedes",
-  "price": "31000",
-  "thumbnail": "https://s3-prod.autonews.com/s3fs-public/styles/1200x630/public/3ACLASS-02_i.jpg",
-  "id": 4
- },
- {
-  "title": "audi",
-  "price": "42000",
-  "thumbnail": "https://storage.googleapis.com/blog-prod-files/uploads/sites/11/2021/08/Audi.jpg",
-  "id": 5
- },
- {
-  "title": "fiat",
-  "price": "43000",
-  "thumbnail": "https://tn.com.ar/resizer/Y9-YX3rWcrOzwNjcCEzvVVILMpo=/767x0/smart/cloudfront-us-east-1.images.arcpublishing.com/artear/72CJQGXO5BAURGPZ7HRSVVOMGA.jpg",
-  "id": 6
- },
- {
-  "title": "renault",
-  "price": "42500",
-  "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/b/bd/2017_Renault_Grand_Scenic_SIG_NAV_DCi_1.5_Front.jpg",
-  "id": 7
- }
-]
+    {
+     "title": "Ferrari",
+     "price": 40000,
+     "thumbnail": "https://cdn.pixabay.com/photo/2017/01/03/06/38/ferrari-f458-spider-1948751_960_720.jpg",
+     "id": 1
+    },
+    {
+     "title": "bmw",
+     "price": 30000,
+     "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/BMW_G11_IMG_2002.jpg/1280px-BMW_G11_IMG_2002.jpg",
+     "id": 2
+    },
+    {
+     "title": "Lambor",
+     "price": 28000,
+     "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Lamborghini_Aventador_Genf_2018.jpg",
+     "id": 3
+    },
+    {
+     "title": "mercedes",
+     "price": 31000,
+     "thumbnail": "https://s3-prod.autonews.com/s3fs-public/styles/1200x630/public/3ACLASS-02_i.jpg",
+     "id": 4
+    },
+    {
+     "title": "audi",
+     "price": 42000,
+     "thumbnail": "https://storage.googleapis.com/blog-prod-files/uploads/sites/11/2021/08/Audi.jpg",
+     "id": 5
+    },
+    {
+     "title": "fiat",
+     "price": 43000,
+     "thumbnail": "https://tn.com.ar/resizer/Y9-YX3rWcrOzwNjcCEzvVVILMpo=/767x0/smart/cloudfront-us-east-1.images.arcpublishing.com/artear/72CJQGXO5BAURGPZ7HRSVVOMGA.jpg",
+     "id": 6
+    },
+    {
+     "title": "renault",
+     "price": 42500,
+     "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/b/bd/2017_Renault_Grand_Scenic_SIG_NAV_DCi_1.5_Front.jpg",
+     "id": 7
+    }
+   ]
