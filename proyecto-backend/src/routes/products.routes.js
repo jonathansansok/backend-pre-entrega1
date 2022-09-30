@@ -7,7 +7,7 @@ const { completedFields, adminAuth } = require("../middlewares/middlewares");
 
 router.get("/", adminAuth(true), controller.getAll);
 router.get("/:id", adminAuth(true), controller.getById);
-router.post("/", adminAuth(false), completedFields, controller.post);
+router.post("/", adminAuth(true), completedFields, controller.post);
 router.put("/:id", adminAuth(false), completedFields, controller.put);
 router.delete("/:id", adminAuth(false), controller.delete);
 

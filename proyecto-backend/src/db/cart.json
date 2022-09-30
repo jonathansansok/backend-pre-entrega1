@@ -1,1 +1,83 @@
-[]
+[
+ {
+  "id": 1,
+  "timestamp": "30/9/2022 15:34:23",
+  "products": [
+   {
+    "title": "Cerveza Budweiser",
+    "price": 199,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_981025-MLA31054651691_062019-O.webp",
+    "description": "Cerveza rubia americana. Presentación en envase de vidrio. Volumen: 1lt",
+    "code": "A543",
+    "stock": 23,
+    "id": 1,
+    "timestamp": "30/9/2022 15:04:18"
+   },
+   {
+    "title": "Cerveza Quilmes",
+    "price": 217,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_758993-MLA31598173803_072019-O.webp",
+    "description": "Cerveza rubia argentina. Presentación en envase de vidrio. Volumen: 1lt",
+    "code": "A540",
+    "stock": 20,
+    "id": 2,
+    "timestamp": "30/9/2022 15:26:08"
+   },
+   {
+    "title": "Cerveza Andes Origen",
+    "price": 162,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_758130-MLA44839765132_022021-O.webp",
+    "description": "Cerveza rubia Andes. Presentación en envase de lata. Volumen: 473ml",
+    "code": "A542",
+    "stock": 28,
+    "id": 4,
+    "timestamp": "30/9/2022 15:27:45"
+   }
+  ],
+  "total": 0
+ },
+ {
+  "id": 2,
+  "timestamp": "30/9/2022 15:37:44",
+  "products": [
+   {
+    "title": "Cerveza Brahma",
+    "price": 217,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_650294-MLA31115753334_062019-O.webp",
+    "description": "Cerveza rubia brasileña. Presentación en envase de vidrio. Volumen: 1lt",
+    "code": "A541",
+    "stock": 17,
+    "id": 3,
+    "timestamp": "30/9/2022 15:26:31"
+   },
+   {
+    "title": "Cerveza Quilmes Stout",
+    "price": 141.67,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_768107-MLA44839759876_022021-O.webp",
+    "description": "Cerveza negra stout. Presentación en envase de lata. Volumen: 473ml",
+    "code": "A540",
+    "stock": 21,
+    "id": 5,
+    "timestamp": "30/9/2022 15:29:37"
+   }
+  ],
+  "total": 0
+ },
+ {
+  "id": 3,
+  "timestamp": "30/9/2022 15:39:48",
+  "products": [
+   {
+    "title": "Cerveza Budweiser",
+    "price": 199,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_981025-MLA31054651691_062019-O.webp",
+    "description": "Cerveza rubia americana. Presentación en envase de vidrio. Volumen: 1lt",
+    "code": "A543",
+    "stock": 23,
+    "id": 1,
+    "timestamp": "30/9/2022 15:04:18"
+   }
+  ],
+  "total": 0
+ }
+]

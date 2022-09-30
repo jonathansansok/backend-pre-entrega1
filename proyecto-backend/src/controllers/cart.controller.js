@@ -30,35 +30,50 @@ controller.deleteCart = async (req, res) => {
 
 controller.getProductsInCart = async (req, res) => {
   const data = await cart.getCartById(req.params.id);
-  data
-    ? res.status(200).json({
-        message: "Se obtuvieron los productos del carrito",
-        "cart id": `${req.params.id}`,
-        products: data.products,
-      })
-    : res.status(401).json({
-        message: "El carrito no tiene productos", //FIXME REVISAR LUEGO
-      });
+  if (data === null) {
+    res
+      .status(200)
+      .json({ error: "Not found", message: "No se encontró el carrito" });
+  } else if (data.products.length > 0) {
+    res.status(200).json({
+      message: "Se obtuvieron los productos del carrito",
+      "cart id": data.id,
+      products: data.products,
+    });
+  } else {
+    res.status(200).json({
+      message: "Not found",
+      "cart id": data.id,
+      products: "El carrito no tiene productos",
+    });
+  }
 };
 
-controller.saveProductInCart = async (req, res) => { //TODO Mejorar la funcionalidad - terminar de implementar
-  const productToAdd = await contenedor.getById(req.body.id)
+controller.saveProductInCart = async (req, res) => {
+  const productToAdd = await contenedor.getById(req.body.id);
 
   const data = await cart.addProductToCart(req.params.id, productToAdd);
 
-  res //  TODO Implementar respuesta encaso que no exista carrito
-    .status(200)
-    .json({
-      message: "Se añadió un producto al carrito",
-      "products in cart": data,
-    });
+  data != null
+    ? res.status(200).json({
+        message: "Se añadió un producto al carrito",
+        "products in cart": data,
+      })
+    : res.status(200).json({
+        error: "No se puede añadir el producto",
+        message: "El carrito no existe",
+      });
 };
 
-controller.deleteProductInCart = async (req, res)=>{
-  const {id, id_prod} = req.params
-  const data = await cart.deleteProductInCartById(id, id_prod)
-
-  res.status(200).json({message:`Se ha eliminado el producto ${id_prod} del carrito`})
-}
+controller.deleteProductInCart = async (req, res) => {
+  const { id, id_prod } = req.params;
+  const data = await cart.deleteProductInCartById(id, id_prod);
+  console.log(data, "data 63 producto eliminado");
+  data != undefined
+    ? res.status(200).json({
+        message: `Se ha eliminado el producto ${data.title} del carrito ${id}`,
+      })
+    : res.status(200).json({ error: "No existe el producto en el carrito" });
+};
 
 module.exports = controller;

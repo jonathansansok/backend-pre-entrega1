@@ -1,10 +1,10 @@
 # API CONTAINER
 
-Se va a manejar el módulo fs para poder reescribir el archivos _productos.json_ en la carpeta raiz del repositorio.
+Se va a manejar el módulo fs para poder reescribir el archivos _products.json_ en la carpeta db del repositorio.
 Los métodos que se van a utilizar se van a encargar de las validaciones y la reescritura de este archivo.
 
 ```javascript
-const fs = require("fs")
+const fs = require("fs");
 ```
 
 ## Métodos
@@ -149,7 +149,6 @@ class Container {
 }
 ```
 
-
 ### Delete By Id y Delete All
 
 - Eliminará todos los productos en el archivo, y también permite filtrar producto por producto, y eliminarlo a través de un id
@@ -160,7 +159,7 @@ class Container {
     this.file = file;
   }
 
-async deleteById(idEntered) {
+  async deleteById(idEntered) {
     // ? Elimina del archivo el objeto con el Id buscado
     try {
       const dataToParse = await fs.promises.readFile(this.file, "utf-8");
@@ -201,5 +200,229 @@ async deleteById(idEntered) {
     }
   }
 }
+```
 
+# CART model
+
+Se va a manejar el módulo fs para poder reescribir el archivos _cart.json_ en la carpeta db del repositorio.
+Los métodos que se van a utilizar se van a encargar de las validaciones y la reescritura de este archivo.
+
+## Métodos
+
+Todos los métodos estarán incluidos en la clase Cart, cuyo constructor recibe como parámetro el archivo json de productos. Añade, además, un array vació para persistencia de productos por cada carrito y un timestamp. (Creación de carrito)
+
+### newCart -
+
+- Crea un nuevo carrito, y devuelve su id
+
+```javascript
+class Cart {
+  constructor(file) {
+    this.file = file;
+    this.products = [];
+    this.date = new Date().toLocaleString();
+  }
+
+  async newCart() {
+    try {
+      //! Lectura del archivo principal
+      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
+      const dataParsed = JSON.parse(dataToParse);
+      //! Creación de nuevo carrito
+      const newCart = {
+        id: dataParsed.length + 1,
+        timestamp: this.date,
+        products: this.products,
+        total: 0,
+      };
+      //! Se agrega al archivo principal el nuevo carro creado
+      dataParsed.push(newCart);
+      //! Se prepara el texto para reescribir en el archivo
+      const updatedFile = JSON.stringify(dataParsed, null, " ");
+      fs.promises.writeFile(this.file, updatedFile);
+      //! Retorna el carro creado, desde el controlador extraemos el id del carro, y los productos que posee
+      return newCart;
+    } catch (error) {
+      //! Error Handler
+      console.error(`Se produjo un error en newCart:${error}`);
+    }
+  }
+}
+```
+
+### deleteCartById -
+
+- Vacía un carrito, y lo elimina.
+
+```javascript
+class Cart {
+  constructor(file) {
+    this.file = file;
+    this.products = [];
+    this.date = new Date().toLocaleString();
+  }
+
+  async deleteCartById(idEntered) {
+    try {
+      //! Lectura del archivo principal
+      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
+      const dataParsed = JSON.parse(dataToParse);
+      //! Separar elementos que no coincidan con el id ingresado
+      const leakedCartId = dataParsed.filter(({ id }) => id != idEntered);
+      //! Separar el carro encontrado, para poder enviar una respuesta de "Carro no encontrado"
+      const cartFound = dataParsed.find(({ id }) => id == idEntered);
+
+      if (cartFound) {
+        //! Si se encuentra el carro, se sobreescribe el archivo con el array leakedCartId
+        console.log(`Se ha eliminado el carrito con id:${idEntered}`);
+        const updatedFile = JSON.stringify(leakedCartId, null, " ");
+        fs.promises.writeFile(this.file, updatedFile);
+        //! Se devuelve el carro que se ha eliminado
+        return cartFound;
+      } else {
+        //! Si no se encuentra el carro, se envía un mensaje por consola.
+        console.log(`No se ha encontrado el carrito con id: ${idEntered}`);
+      }
+    } catch (error) {
+      //! Error Handler
+      console.error(`Se ha producido un error en deleteCartById: ${error}`);
+    }
+  }
+}
+```
+
+### getCartById -
+
+- Me permite listar todos los productos guardados en el carrito.
+
+```javascript
+class Cart {
+  constructor(file) {
+    this.file = file;
+    this.products = [];
+    this.date = new Date().toLocaleString();
+  }
+
+  async getCartById(idEntered) {
+    try {
+      //! Lectura del archivo principal
+      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
+      const dataParsed = JSON.parse(dataToParse);
+      //! Encontrar carrito por ID
+      const cartFound = dataParsed.find(({ id }) => id == idEntered);
+
+      if (cartFound) {
+        //! SI encontramos el carro, lo devolvemos
+        console.log(`Se obtuvo el carrito ${idEntered}`);
+        return cartFound;
+      } else {
+        //! Si no se encuentra el carro, retorna null
+        console.log(`No se ha encontrado el carrito ${idEntered}`);
+        return null;
+      }
+    } catch (error) {
+      //! Error Handler
+      console.error(`Se produjo un error en getCartById: ${error}`);
+    }
+  }
+}
+```
+
+### addProductToCart -
+
+- Para incorporar productos al carrito por su ID de producto.
+
+```javascript
+class Cart {
+  constructor(file) {
+    this.file = file;
+    this.products = [];
+    this.date = new Date().toLocaleString();
+  }
+
+  async addProductToCart(idEntered, object) {
+    //! La función recibe un id por req.params y el id de producto por req.body
+    try {
+      //! Lectura del archivo principal
+      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
+      const dataParsed = JSON.parse(dataToParse);
+      //! Se filtran los carritos que no corresponden con el ID proporcionado
+      const leakedCartId = dataParsed.filter(({ id }) => id != idEntered);
+      //! Se separa el carrito encontrado.
+      const cartFound = dataParsed.find(({ id }) => id == idEntered);
+
+      if (cartFound) {
+        //! Si existe el carrito, se agrega el objeto nuevo obtenido por req-body.id
+        cartFound.products.push(object);
+        //! El método sort() ordenará los productos por su id, de menor a mayor
+        cartFound.products.sort((a, b) => a.id - b.id);
+        //! Se pushea al array principal de carritos el Carrito modificado y se lo ordena con sort()
+        leakedCartId.push(cartFound);
+        leakedCartId.sort((a, b) => a.id - b.id);
+        //! Preparando el nuevo archivo para sobreescribir
+        const updatedFile = JSON.stringify(leakedCartId, null, " ");
+        fs.promises.writeFile(this.file, updatedFile);
+        console.log(
+          `Se ha agregado el producto ${object.title} exitosamente al carrito ${idEntered}`
+        );
+        //! REtorna el carrito encontrado y modificado
+        return cartFound;
+      } else {
+        //! Si no encuentra el carro, devuelve null
+        return null;
+      }
+    } catch (error) {
+      //! Handler Error
+      console.error(`Se produjo un error en addProductToCart:${error}`);
+    }
+  }
+}
+```
+
+### deleteProductInCartById -
+
+- Eliminar un producto del carrito, por su ID de producto y de carrito.
+
+```javascript
+class Cart {
+  constructor(file) {
+    this.file = file;
+    this.products = [];
+    this.date = new Date().toLocaleString();
+  }
+
+  async deleteProductInCartById(idCart, idProduct) {
+    //! La función recibe dos id desde req.params, uno del carrito, y otro del producto a eliminar
+    try {
+      //! Lectura del archivo principal
+      const dataToParse = await fs.promises.readFile(this.file, "utf-8");
+      const dataParsed = JSON.parse(dataToParse);
+      //! Se separan los demás carritos que no se deben modificar
+      const leakedCarts = dataParsed.filter(({ id }) => id != idCart);
+
+      //! Se separa el carro a modificar
+      const cartFound = dataParsed.find(({ id }) => id == idCart);
+      //! Se aislan los productos del carro que no se deben modificar
+      const leakedProducts = cartFound.products.filter(
+        ({ id }) => id != idProduct
+      );
+      //! Se aisla el producto del carro a borrar
+      const productFound = cartFound.products.find(({ id }) => id == idProduct);
+//! Se sobreescribe el array de productos con el array con el producto filtrado, y se ordena con sort()
+      cartFound.products = leakedProducts;
+      cartFound.products.sort((a, b) => a.id - b.id);
+      //! Se pushea al array principal de carritos, el array modificado en el paso anterior, y se ordena con sort()
+      leakedCarts.push(cartFound);
+      leakedCarts.sort((a, b) => a.id - b.id);
+      //! Se sobreescribe el archivo ya modificado
+      const updatedFile = JSON.stringify(leakedCarts, null, " ");
+      fs.promises.writeFile(this.file, updatedFile);
+//! retorna el producto modificado (eliminado)
+      return productFound;
+    } catch (error) {
+      //! Error Handler
+      console.error(`Se produjo un error en deleteProductInCartById:${error}`);
+    }
+  }
+}
 ```
